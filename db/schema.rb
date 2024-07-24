@@ -10,9 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_24_003956) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_24_004934) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "melee_weapons", force: :cascade do |t|
+    t.string "name"
+    t.integer "attacks"
+    t.integer "ws"
+    t.integer "strength"
+    t.integer "ap"
+    t.integer "damage"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "units", force: :cascade do |t|
     t.string "name"
