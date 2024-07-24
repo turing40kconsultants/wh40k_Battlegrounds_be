@@ -24,5 +24,6 @@ RSpec.describe MeleeWeapon, type: :model do
       expect(m_weapon.strength).to eq(5)
       expect(m_weapon.ap).to eq(2)
       expect(m_weapon.damage).to eq(2)
+    end
   end
 end
