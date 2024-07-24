@@ -1,4 +1,4 @@
 class MeleeWeaponsUnit < ApplicationRecord
-  belongs_to :units
-  belongs_to :melee_weapons
+  belongs_to :unit
+  belongs_to :melee_weapon
 end
