@@ -10,38 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_24_201831) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_24_231449) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "melee_weapons", force: :cascade do |t|
-    t.string "name"
-    t.integer "attacks"
-    t.integer "ws"
-    t.integer "strength"
-    t.integer "ap"
-    t.integer "damage"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "melee_weapons_units", force: :cascade do |t|
-    t.bigint "unit_id", null: false
-    t.bigint "melee_weapon_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["melee_weapon_id"], name: "index_melee_weapons_units_on_melee_weapon_id"
-    t.index ["unit_id"], name: "index_melee_weapons_units_on_unit_id"
-  end
-
-  create_table "melee_weapons_weapon_abilities", force: :cascade do |t|
-    t.bigint "weapon_ability_id", null: false
-    t.bigint "melee_weapon_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["melee_weapon_id"], name: "index_melee_weapons_weapon_abilities_on_melee_weapon_id"
-    t.index ["weapon_ability_id"], name: "index_melee_weapons_weapon_abilities_on_weapon_ability_id"
-  end
 
   create_table "units", force: :cascade do |t|
     t.string "name"
@@ -64,8 +35,38 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_24_201831) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "melee_weapons_units", "melee_weapons"
-  add_foreign_key "melee_weapons_units", "units"
-  add_foreign_key "melee_weapons_weapon_abilities", "melee_weapons"
-  add_foreign_key "melee_weapons_weapon_abilities", "weapon_abilities"
+  create_table "weapon_units", force: :cascade do |t|
+    t.bigint "unit_id", null: false
+    t.bigint "weapon_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["unit_id"], name: "index_weapon_units_on_unit_id"
+    t.index ["weapon_id"], name: "index_weapon_units_on_weapon_id"
+  end
+
+  create_table "weapon_weapon_abilities", force: :cascade do |t|
+    t.bigint "weapon_ability_id", null: false
+    t.bigint "weapon_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["weapon_ability_id"], name: "index_weapon_weapon_abilities_on_weapon_ability_id"
+    t.index ["weapon_id"], name: "index_weapon_weapon_abilities_on_weapon_id"
+  end
+
+  create_table "weapons", force: :cascade do |t|
+    t.string "name"
+    t.integer "attacks"
+    t.integer "ws"
+    t.integer "strength"
+    t.integer "ap"
+    t.integer "damage"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "range"
+  end
+
+  add_foreign_key "weapon_units", "units"
+  add_foreign_key "weapon_units", "weapons"
+  add_foreign_key "weapon_weapon_abilities", "weapon_abilities"
+  add_foreign_key "weapon_weapon_abilities", "weapons"
 end

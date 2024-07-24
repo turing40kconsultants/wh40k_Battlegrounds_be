@@ -7,7 +7,7 @@ RSpec.describe WeaponAbility, type: :model do
   end
 
   describe 'associations' do
-    it { should have_and_belong_to_many(:melee_weapons) }
+    it { should have_and_belong_to_many(:weapons) }
   end
 
   describe 'initialize' do

@@ -10,8 +10,8 @@ class Unit < ApplicationRecord
             presence: true
 
   # Associations
-  has_many :melee_weapons
-  has_many :ranged_weapons
+  has_many :weapon_units
+  has_many :weapons, through: :weapon_units
 
   # Instance Methods
   def take_damage
