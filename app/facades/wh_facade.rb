@@ -7,40 +7,72 @@ class WhFacade
   def get_units_by_faction(faction)
     search = GithubService.get_units_by_faction(faction)
     units = search[:catalogue][:sharedSelectionEntries][:selectionEntry].flat_map do |unit|
-      if unit[:type] == "unit"
-        name = unit[:name]
-        stats = unit[:profiles][:profile].flat_map do |entry|
-          entry[:characteristics][:characteristic] if entry[:typeName] == "Unit"
-        end.compact
-        binding.pry
+#       if unit[:type] == "unit"
+#         name = unit[:name]
+#         stats = unit[:profiles][:profile].flat_map do |entry|
+#           entry[:characteristics][:characteristic] if entry[:typeName] == "Unit"
+#         end.compact
+#         # binding.pry
+#         weapon_profiles = []
 
-        weapons = []
 
-        weapon_profiles = []
-        profile = unit[:selectionEntryGroups][:selectionEntryGroup][:selectionEntries][:selectionEntry]
-        # immortals
-        #closecombat
-        if profile[:selectionEntries]
-          weapon_profiles << profile[:selectionEntries][:selectionEntry][:profiles][:profile]
-        end
-        #guassblaster, teslacarbine
-        profile[:selectionEntryGroups][:selectionEntryGroup][:selectionEntries][:selectionEntry].each do |entry|
-          weapon_profiles << entry[:profiles][:profile] if entry[:profiles][:profile].is_a?(Hash)
-          if entry[:profiles][:profile].is_a?(Array)
-            entry[:profiles][:profile].each do |weapon|
-              weapon_profiles << weapon
-            end
-          end
-        end
+#         profile = unit[:selectionEntryGroups][:selectionEntryGroup][:selectionEntries][:selectionEntry]
+# binding.pry
+#         if profile.is_a?(Array)
+#           profile.each do |entry|
+#             # binding.pry
+#             weapon_profiles << entry[:selectionEntries][:selectionEntry][:profiles][:profile]
+#           end
+#           # binding.pry
+#         elsif profile[:selectionEntryGroups]
+#           profile[:selectionEntryGroups][:selectionEntryGroup][:selectionEntries][:selectionEntry].each do |group|
+#             weapon_profiles << group[:profiles][:profile] if group[:profiles][:profile].is_a?(Hash)
+#             if group[:profiles][:profile].is_a?(Array)
+#               group[:profiles][:profile].each do |weapon|
+#                 weapon_profiles << weapon
+#               end
+#             end
+#           end
+#             # group[:selectionEntries][:selectionEntry]
+#         # end
 
-        weapon_profiles.map do |profile| 
-          { 
-            name: profile[:name],
-            typeName: profile[:typeName],
-            characteristics: profile[:characteristics][:characteristic]
-          }
-        end
-      end
+#         elsif profile[:selectionEntries][:selectionEntry].is_a?(Hash)
+#           # binding.pry
+#           weapon_profiles << profile[:selectionEntries][:selectionEntry][:profiles][:profile]
+#         elsif profile[:selectionEntries][:selectionEntry].is_a?(Array)
+#           profile[:selectionEntries][:selectionEntry].each do |entry|
+#             weapon_profiles << entry[:profiles][:profile] if entry[:profiles][:profile].is_a?(Hash)
+#             if entry[:profiles][:profile].is_a?(Array)
+#               entry[:profiles][:profile].each do |weapon|
+#                 weapon_profiles << weapon
+#               end
+#             end
+#           end
+#         elsif profile[:selectionEntryGroups][:selectionEntryGroup][:selectionEntries][:selectionEntry].each do |entry|
+#           binding.pry
+#           weapon_profiles << entry[:profiles][:profile] if entry[:profiles][:profile].is_a?(Hash)
+#             if entry[:profiles][:profile].is_a?(Array)
+#               entry[:profiles][:profile].each do |weapon|
+#                 weapon_profiles << weapon
+#               end
+#             end
+#           end
+#         end
+
+#         weapons = weapon_profiles.map do |profile| 
+#           { 
+#             name: profile[:name],
+#             typeName: profile[:typeName],
+#             characteristics: profile[:characteristics][:characteristic]
+#           }
+#         end
+
+#         {
+#           :name => name,
+#           :stats => stats,
+#           :weapons => weapons
+#         }
+#       end
 
       if unit[:type] == "model"
 
