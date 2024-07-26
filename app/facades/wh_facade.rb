@@ -6,56 +6,68 @@ class WhFacade
   def get_units_by_faction(faction)
     search = GithubService.get_units_by_faction(faction)
     units = search[:catalogue][:sharedSelectionEntries][:selectionEntry].flat_map do |unit|
+      collection = []
+      binding.pry
+
       if unit[:type] == "unit"
+
         name = unit[:name]
-        binding.pry
+
         stats = 
-        #new
           if unit[:profiles][:profile].is_a?(Hash)
             unit[:selectionEntryGroups][:selectionEntryGroup][:selectionEntries][:selectionEntry][:profiles][:profile][:characteristics][:characteristic]
           else
             #to here
             unit[:profiles][:profile].flat_map do |entry|
             entry[:characteristics][:characteristic] if entry[:typeName] == "Unit"
-          end
-        end.compact
+            end
+          end.compact
+
         weapon_profiles = []
 
         if unit[:selectionEntries]
-          # binding.pry
-          unit[:selectionEntries][:selectionEntry][:selectionEntries][:selectionEntry].each do |entry|
-            if entry[:profiles]
-            weapon_profiles << entry[:profiles][:profile] if entry[:profiles][:profile].is_a?(Hash)
-              if entry[:profiles][:profile].is_a?(Array)
-                entry[:profiles][:profile].each do |weapon|
-                  weapon_profiles << weapon
+          if unit[:selectionEntries][:selectionEntry].is_a?(Array)
+            unit[:selectionEntries][:selectionEntry].each do |entry|
+              entry[:selectionEntries][:selectionEntry].each do |entry|
+                weapon_profiles << entry[:profiles][:profile]
+                
+              end
+            end
+
+          elsif unit[:selectionEntries][:selectionEntry].is_a?(Hash)
+            if unit[:selectionEntries][:selectionEntry][:selectionEntries][:selectionEntry].is_a?(Hash)
+              weapon_profiles << unit[:selectionEntries][:selectionEntry][:selectionEntries][:selectionEntry][:profiles][:profile]
+            elsif unit[:selectionEntries][:selectionEntry][:selectionEntries][:selectionEntry].is_a?(Array)
+              unit[:selectionEntries][:selectionEntry][:selectionEntries][:selectionEntry].each do |entry|
+                if entry[:profiles]
+                weapon_profiles << entry[:profiles][:profile] if entry[:profiles][:profile].is_a?(Hash)
+                  if entry[:profiles][:profile].is_a?(Array)
+                    entry[:profiles][:profile].each do |weapon|
+                      weapon_profiles << weapon
+                    end
+                  end
+                elsif entry[:selectionEntries]
+                  weapon_profiles << entry[:selectionEntries][:selectionEntry][:profiles][:profile]
                 end
               end
-            elsif entry[:selectionEntries]
-              weapon_profiles << entry[:selectionEntries][:selectionEntry][:profiles][:profile]
             end
           end
         end
 
         if unit[:selectionEntryGroups]
-          # binding.pry
           profile = unit[:selectionEntryGroups][:selectionEntryGroup][:selectionEntries][:selectionEntry]
-        # end
-# binding.pry
           if profile.is_a?(Array)
             profile.each do |entry|
-              # binding.pry
-              weapon_profiles << entry[:selectionEntries][:selectionEntry][:profiles][:profile]
+              if entry[:selectionEntries]
+                weapon_profiles << entry[:selectionEntries][:selectionEntry][:profiles][:profile]
+              end
             end
-            # binding.pry
+
           elsif profile[:selectionEntryGroups]
-            # binding.pry
             if profile[:selectionEntryGroups][:selectionEntryGroup].is_a?(Array)
               profile[:selectionEntryGroups][:selectionEntryGroup].each do |group|
                 group[:selectionEntries][:selectionEntry].each do |nested_entry|
-                  nested_entry[:profiles][:profile].each do |weapon|
-                    weapon_profiles << weapon
-                  end
+                  weapon_profiles << nested_entry[:profiles][:profile] if nested_entry[:profiles][:profile].is_a?(Hash)
                 end
               end
             else
@@ -68,11 +80,8 @@ class WhFacade
                 end
               end
             end
-              # group[:selectionEntries][:selectionEntry]
-          # end
 
           elsif profile[:selectionEntries][:selectionEntry].is_a?(Hash)
-            # binding.pry
             weapon_profiles << profile[:selectionEntries][:selectionEntry][:profiles][:profile]
           elsif profile[:selectionEntries][:selectionEntry].is_a?(Array)
             profile[:selectionEntries][:selectionEntry].each do |entry|
@@ -84,7 +93,6 @@ class WhFacade
               end
             end
           elsif profile[:selectionEntryGroups][:selectionEntryGroup][:selectionEntries][:selectionEntry].each do |entry|
-            # binding.pry
             weapon_profiles << entry[:profiles][:profile] if entry[:profiles][:profile].is_a?(Hash)
               if entry[:profiles][:profile].is_a?(Array)
                 entry[:profiles][:profile].each do |weapon|
@@ -103,13 +111,13 @@ class WhFacade
           }
         end
 
-        {
+        collection << {
           :name => name,
           :stats => stats,
           :weapons => weapons
         }
       end
-
+# ================================================================
       if unit[:type] == "model"
 
         name = unit[:name]
@@ -143,13 +151,14 @@ class WhFacade
               }
             end
           end
-          
-        {
+
+        collection << {
           :name => name,
           :stats => stats,
           :weapons => weapons
         }
       end
+      collection
     end
   end
 end
