@@ -1,6 +1,6 @@
 class UnitSerializer
   include JSONAPI::Serializer
-  attributes :name, :description, :unit_price, :merchant_id
+  attributes :name, :movement, :toughness, :sv, :wounds, :leadership, :objective_control, :faction_id
   
   def self.format_units(units)
     {

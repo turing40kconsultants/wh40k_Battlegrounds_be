@@ -5,8 +5,8 @@ class Api::V1::FactionsController < ApplicationController
   end
 
   def show
-    #essentially the factions units
-    faction = Faction.find{params[:id]}
+    #faction's units
+    faction = Faction.find(params[:faction_id])
     render json: UnitSerializer.format_units(faction.units)
   end
 end

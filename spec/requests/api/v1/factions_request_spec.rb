@@ -4,7 +4,6 @@ describe "Wh40k_Battlegrounds API" do
   it "sends a list of factions" do
     faction = Faction.create(name: "Necrons")
     faction2 = Faction.create(name: "Blood Angels")
-    factions = Factions.all
 
     get '/api/v1/factions'
 
@@ -13,14 +12,14 @@ describe "Wh40k_Battlegrounds API" do
 
     factions = JSON.parse(response.body, symbolize_names: true)
 
-    expect(factions.count).to eq(2)
+    expect(factions[:data].count).to eq(2)
 
-    factions.each do |faction|
+    factions[:data].each do |faction|
       expect(faction).to have_key(:id)
-      expect(faction[:id]).to be_an(Integer)
+      expect(faction[:id].to_i).to be_an(Integer)
 
-      expect(faction).to have_key(:name)
-      expect(faction[:name]).to be_a(String)
+      expect(faction[:attributes]).to have_key(:name)
+      expect(faction[:attributes][:name]).to be_a(String)
     end
   end
 
