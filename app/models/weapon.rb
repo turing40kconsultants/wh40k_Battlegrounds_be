@@ -10,5 +10,4 @@ class Weapon < ApplicationRecord
   validates :strength, presence: true
   validates :ap, presence: true
   validates :damage, presence: true
-  validates :range, presence: true
 end
