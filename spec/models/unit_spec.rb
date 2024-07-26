@@ -11,6 +11,12 @@ RSpec.describe Unit, type: :model do
     it { should validate_presence_of(:objective_control) }
   end
 
+  describe 'associations' do
+    it { should have_many(:weapon_units) }
+    it { should have_many(:weapons).through(:weapon_units) }
+    it { should belong_to(:faction) }
+  end
+
   before(:each) do
     @uriel_v = Unit.create(name: 'Uriel Ventris', movement: 6, toughness: 4, sv: 3, wounds: 5, leadership: 6, objective_control: 1, invul_sv: 4)
     @cultist = Unit.create(name: 'Cultist Mob', movement: 6, toughness: 3, sv: 6, wounds: 1, leadership: 7, objective_control: 1, invul_sv: nil)

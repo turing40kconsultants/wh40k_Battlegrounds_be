@@ -10,9 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_24_231449) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_26_014955) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "factions", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "units", force: :cascade do |t|
     t.string "name"
@@ -26,6 +32,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_24_231449) do
     t.integer "objective_control"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "faction_id"
+    t.index ["faction_id"], name: "index_units_on_faction_id"
   end
 
   create_table "weapon_abilities", force: :cascade do |t|
@@ -59,12 +67,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_24_231449) do
     t.integer "ws"
     t.integer "strength"
     t.integer "ap"
-    t.integer "damage"
+    t.string "damage"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "range"
   end
 
+  add_foreign_key "units", "factions"
   add_foreign_key "weapon_units", "units"
   add_foreign_key "weapon_units", "weapons"
   add_foreign_key "weapon_weapon_abilities", "weapon_abilities"

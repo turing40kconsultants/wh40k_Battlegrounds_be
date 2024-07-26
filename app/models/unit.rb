@@ -12,6 +12,7 @@ class Unit < ApplicationRecord
   # Associations
   has_many :weapon_units
   has_many :weapons, through: :weapon_units
+  belongs_to :faction
 
   # Instance Methods
   def take_damage
