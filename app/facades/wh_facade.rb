@@ -161,4 +161,29 @@ class WhFacade
       collection
     end
   end
+
+  def get_dark_angels(faction)
+    search = GithubService.get_units_by_faction(faction)
+    data = search[:catalogue][:sharedSelectionEntries][:selectionEntry]
+    collection = find_all_by_key_iterative(data, :profile)
+  end
+
+  def find_all_by_key_iterative(hash, target_key)
+    result = []
+    stack = [hash]
+  
+    until stack.empty?
+      current = stack.pop
+      if current.is_a?(Hash)
+        current.each do |key, value|
+          result << value if key == target_key
+          stack << value if value.is_a?(Hash) || value.is_a?(Array)
+        end
+      elsif current.is_a?(Array)
+        current.each { |element| stack << element if element.is_a?(Hash) }
+      end
+    end
+  
+    result
+  end
 end

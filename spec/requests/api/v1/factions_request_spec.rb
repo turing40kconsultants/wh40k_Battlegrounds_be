@@ -56,6 +56,9 @@ describe "Wh40k_Battlegrounds API" do
       expect(faction_units[:attributes]).to have_key(:sv)
       expect(faction_units[:attributes][:sv]).to be_a(Integer)
 
+      expect(faction_units[:attributes]).to have_key(:invul_sv)
+      expect(faction_units[:attributes][:invul_sv]).to be_a(Integer)
+
       expect(faction_units[:attributes]).to have_key(:wounds)
       expect(faction_units[:attributes][:wounds]).to be_a(Integer)
 
@@ -64,6 +67,43 @@ describe "Wh40k_Battlegrounds API" do
 
       expect(faction_units[:attributes]).to have_key(:objective_control)
       expect(faction_units[:attributes][:objective_control]).to be_a(Integer)
+
+      faction_units[:weapons][:data].each do |weapon|
+        expect(weapon).to have_key(:id)
+        expect(weapon[:id]).to be_a(String)
+    
+        expect(weapon[:attributes]).to have_key(:name)
+        expect(weapon[:attributes][:name]).to be_a(String)
+    
+        expect(weapon[:attributes]).to have_key(:attacks)
+        expect(weapon[:attributes][:attacks]).to be_a(Integer)
+    
+        expect(weapon[:attributes]).to have_key(:ws)
+        expect(weapon[:attributes][:ws]).to be_a(Integer)
+    
+        expect(weapon[:attributes]).to have_key(:strength)
+        expect(weapon[:attributes][:strength]).to be_a(Integer)
+
+        expect(weapon[:attributes]).to have_key(:ap)
+        expect(weapon[:attributes][:ap]).to be_a(Integer)
+
+        expect(weapon[:attributes]).to have_key(:damage)
+        expect(weapon[:attributes][:damage]).to be_a(Integer)
+
+        expect(weapon[:attributes]).to have_key(:range)
+        expect(weapon[:attributes][:range]).to be_a(Integer)
+
+        weapon[:abilities][:data].each do |ability|
+          expect(ability).to have_key(:id)
+          expect(ability[:id]).to be_a(String)
+      
+          expect(ability[:attributes]).to have_key(:name)
+          expect(ability[:attributes][:name]).to be_a(String)
+      
+          expect(ability[:attributes]).to have_key(:description)
+          expect(ability[:attributes][:description]).to be_a(Integer)
+        end
+      end
     end
   end
 end
