@@ -7,7 +7,7 @@ class WhFacade
     search = GithubService.get_units_by_faction(faction)
     units = search[:catalogue][:sharedSelectionEntries][:selectionEntry].flat_map do |unit|
       collection = []
-      # binding.pry
+      binding.pry
 
       if unit[:type] == "unit"
 
@@ -187,3 +187,15 @@ class WhFacade
     result
   end
 end
+
+# trying to create helper method to iterate and file profiles
+# def find_profiles(data)
+#   entry = []
+
+#   if data[:selectionEntries]
+#     data[:selectionEntries][:selectionEntry].
+#   end
+#   until entry[:profiles]
+
+#   end
+# end
