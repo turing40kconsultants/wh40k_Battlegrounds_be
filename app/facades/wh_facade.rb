@@ -7,7 +7,7 @@ class WhFacade
     search = GithubService.get_units_by_faction(faction)
     units = search[:catalogue][:sharedSelectionEntries][:selectionEntry].flat_map do |unit|
       collection = []
-      binding.pry
+      # binding.pry
 
       if unit[:type] == "unit"
 
