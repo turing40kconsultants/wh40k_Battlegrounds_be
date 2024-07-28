@@ -9,8 +9,8 @@ describe GithubService do
         expect(search).to be_a Hash
 
         units_data = search[:catalogue][:sharedSelectionEntries][:selectionEntry]
-        
-        expect(search[:catalogue][:sharedSelectionEntries][:selectionEntry]).to be_an Array
+
+        expect(units_data).to be_an Array
 
       end
     end
