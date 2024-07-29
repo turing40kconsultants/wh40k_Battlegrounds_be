@@ -108,42 +108,48 @@ Faction.destroy_all
                                                     ws: 2, 
                                                     strength: 14, 
                                                     ap: 4, 
-                                                    damage: "D6+2")
+                                                    damage: "D6+2",
+                                                    range: 0)
 
 @Scythe_of_the_Nightbringer_sweep = Weapon.create!(name: 'Scythe of the Nightbringer - sweep', 
                                                     attacks: 14, 
                                                     ws: 2, 
                                                     strength: 8, 
                                                     ap: 2, 
-                                                    damage: 2)
+                                                    damage: 2,
+                                                    range: 0)
 
 @skorpekh_hyperphase = Weapon.create!(name: 'Skorpekh Hyperphase Weapons', 
                                                     attacks: 4, 
                                                     ws: 3, 
                                                     strength: 7, 
                                                     ap: 2, 
-                                                    damage: 2)
+                                                    damage: 2,
+                                                    range: 0)
 
 @hyperphase_sword = Weapon.create!(name: 'Hyperphase Sword', 
                                   attacks: 3, 
                                   ws: 3, 
                                   strength: 6, 
                                   ap: 2, 
-                                  damage: 1)
+                                  damage: 1,
+                                  range: 0)
 
 @warscythe = Weapon.create!(name: 'Warscythe', 
                           attacks: 2, 
                           ws: 3, 
                           strength: 8, 
                           ap: 3, 
-                          damage: 2)
+                          damage: 2,
+                          range: 0)
 
 @close_combat_weapon_necron = Weapon.create!(name: 'Close Combat Weapon', 
                           attacks: 2, 
                           ws: 3, 
                           strength: 4, 
                           ap: 0, 
-                          damage: 1)
+                          damage: 1,
+                          range: 0)
 
 #necron weapon to characteer associations
 
@@ -161,63 +167,72 @@ Faction.destroy_all
                               ws: 2,
                               strength: 12,
                               ap: 4,
-                              damage: 4)
+                              damage: 4,
+                              range: 0)
 
 @fealty_sweep = Weapon.create!(name: 'Fealty - sweep',
                               attacks: 16,
                               ws: 2,
                               strength: 6,
                               ap: 3,
-                              damage: 1)
+                              damage: 1,
+                              range: 0)
 
 @great_weapon_unforgiven = Weapon.create!(name: 'Great weapon of the unforgiven',
                               attacks: 5,
                               ws: 2,
                               strength: 6,
                               ap: 2,
-                              damage: 2)
+                              damage: 2,
+                              range: 0)
 
 @mace_absolution = Weapon.create!(name: 'Mace of absolution',
                               attacks: 4,
                               ws: 2,
                               strength: 6,
                               ap: 2,
-                              damage: 2)
+                              damage: 2,
+                              range: 0)
 
 @power_weapon_dwk = Weapon.create!(name: 'Power weapon',
                               attacks: 5,
                               ws: 2,
                               strength: 6,
                               ap: 2,
-                              damage: 2)
+                              damage: 2,
+                              range: 0)
 
 @relic_weapon_dwk = Weapon.create!(name: 'Relic weapon',
                               attacks: 6,
                               ws: 2,
                               strength: 7,
                               ap: 2,
-                              damage: 2)
+                              damage: 2,
+                              range: 0)
 
 @calibanite_gsword_strike = Weapon.create!(name: 'Calibanite greatsword - strike',
                               attacks: 4,
                               ws: 3,
                               strength: 6,
                               ap: 2,
-                              damage: 2)
+                              damage: 2,
+                              range: 0)
 
 @calibanite_gsword_sweep = Weapon.create!(name: 'Calibanite greatsword - sweep',
                               attacks: 5,
                               ws: 3,
                               strength: 6,
                               ap: 2,
-                              damage: 1)
+                              damage: 1,
+                              range: 0)
 
 @crozius_arcanum_strike = Weapon.create!(name: 'Crozius arcanum and power weapon - strike',
                                         attacks: 5,
                                         ws: 2,
                                         strength: 6,
                                         ap: 2,
-                                        damage: 2)
+                                        damage: 2,
+                                        range: 0)
 
 
 @crozius_arcanum_sweep = Weapon.create!(name: 'Calibanite greatsword - sweep',
@@ -225,7 +240,8 @@ Faction.destroy_all
                                       ws: 2,
                                       strength: 6,
                                       ap: 2,
-                                      damage: 1)
+                                      damage: 1,
+                                      range: 0)
 
 #dark angels weapon to characteer associations
 
