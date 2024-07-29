@@ -6,7 +6,7 @@ class UnitSerializer
     {
       data: 
       units.map do |unit|
-        {
+        { 
           id: unit.id.to_s,
           type: 'unit',
           attributes: {
