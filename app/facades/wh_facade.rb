@@ -1,9 +1,58 @@
 class WhFacade
   def initialize
+    @invul_sv_four_units = [
+      "Azrael",
+      "Belial",
+      "Sammael",
+      "Ezekiel",
+      "Asmodai",
+      "Lazarus",
+      "Deathwing Knights",
+      "Deathwing Terminator Squad",
+      "Deathwing Strikemaster [Legends]",
+      "Orikan the Diviner",
+      "Imotekh the Stormlord",
+      "Anrakyr the Traveller [Legends]",
+      "Illuminor Szeras",
+      "Nemesor Zahndrekh [Legends]",
+      "Trazyn the Infinite",
+      "Skorpekh Lord",
+      "Lokhust Lord",
+      "Catacomb Command Barge",
+      "Overlord",
+      "Chronomancer",
+      "Lychguard",
+      "Triarch Stalker",
+      "C'tan Shard of the Deceiver",
+      "C'tan Shard of the Nightbringer",
+      "C'tan Shard of the Void Dragon",
+      "Transcendant C'tan",
+      "Canoptek Wraiths",
+      "Annihilation Barge",
+      "Doomsday Ark",
+      "Canoptek Doomstalker",
+      "Ghost Ark",
+      "Tesseract Vault",
+      "The Silent King",
+      "Canoptek Tomb Stalker [Legends]",
+      "Canoptek Tomb Sentinel [Legends]",
+      "Tesseract Ark [Legends]",
+      "Overlord with Translocation Shroud"]
 
+    @invul_sv_five_units = [
+      "Nephilim Jetfighter",
+      "Ravenwing Dark Talon",
+      "Land Speeder Vengeance",
+      "Ravenwing Darkshroud",
+      "Ravenwing Black Knights",
+      "Ravenwing Command Squad",
+      "Ravenwing Talonmaster [Legends]",
+      "Seraptek Heavy Construct",
+      "Gauss Pylon [Legends]"]
+
+    @invul_sv_three_units = ["Lion El'Jonson"]
   end
   
-
   def get_units_by_faction(path, faction)
     data = get_units_data_by_faction(path)
     clean_data = clean_units_data(data, faction)
@@ -27,7 +76,7 @@ class WhFacade
         movement: unit[:stats][0].delete('\"').to_i, 
         toughness: unit[:stats][1].to_i, 
         sv: unit[:stats][2].delete('+').to_i,
-        invul_sv: unit[:stats],
+        invul_sv: check_for_invul_sv(unit[:name]),
         wounds: unit[:stats][3].to_i, 
         leadership: unit[:stats][4].delete('+').to_i, 
         objective_control: unit[:stats][5].to_i, 
@@ -42,7 +91,7 @@ class WhFacade
       if weapon[:typeName] != "Abilities"
         {
           name: weapon[:name],
-          attacks: weapon[:characteristics][1].to_i,
+          attacks: weapon[:characteristics][1],
           ws: weapon[:characteristics][2].delete('+').to_i,
           strength: weapon[:characteristics][3].to_i,
           ap: weapon[:characteristics][4].delete('-').to_i,
@@ -72,6 +121,15 @@ class WhFacade
     end
   end
 
+  def check_for_invul_sv(name)
+    if @invul_sv_five_units.include?(name)
+      5
+    elsif @invul_sv_four_units.include?(name)
+      4
+    elsif @invul_sv_three_units.include?(name)
+      3
+    end
+  end
 
   def get_units_data_by_faction(path)
     search = GithubService.get_units_by_faction(path)

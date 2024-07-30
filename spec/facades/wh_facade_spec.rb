@@ -11,7 +11,7 @@ describe WhFacade do
     it "can create Necron units with hash data from GithubService", :vcr do
 
       response = WhFacade.new.get_units_by_faction("Necrons.cat", @faction1)
-
+binding.pry
       expect(response).to be_all Unit
       expect(response.count).to eq(59)
       expect(Weapon.all.count).to eq(119)
@@ -45,12 +45,11 @@ describe WhFacade do
       expect(clean_data).to have_key(:sv)
       expect(clean_data[:sv]).to be_a(Integer)
 
-      # STARTING WITH NO INVUL SAVES FOR NOW
-      # if clean_data[:invul_sv].nil?
-      #   expect(clean_data[:invul_sv]).to be_nil
-      # else
-      #   expect(clean_data[:invul_sv]).to be_a(Integer)
-      # end
+      if clean_data[:invul_sv].nil?
+        expect(clean_data[:invul_sv]).to be_nil
+      else
+        expect(clean_data[:invul_sv]).to be_a(Integer)
+      end
 
       expect(clean_data).to have_key(:wounds)
       expect(clean_data[:wounds]).to be_a(Integer)
@@ -73,7 +72,7 @@ describe WhFacade do
       expect(clean_data[:name]).to be_a(String)
   
       expect(clean_data).to have_key(:attacks)
-      # expect(clean_data[:attacks]).to be_a(Integer)
+      expect(clean_data[:attacks]).to be_a(String)
   
       expect(clean_data).to have_key(:ws)
       expect(clean_data[:ws]).to be_a(Integer)
@@ -103,6 +102,21 @@ describe WhFacade do
         expect(clean_data).to have_key(:description)
         expect(clean_data[:description]).to be_a(String)
       end
+    end
+
+    it "can check of invul_sv by name" do 
+      response1 = WhFacade.new.get_units_data_by_faction("Necrons.cat")
+      clean_data = WhFacade.new.clean_units_data(response1, @faction1)
+
+      response2 = WhFacade.new.get_units_data_by_faction("Imperium%20-%20Dark%20Angels.cat")
+      clean_data2 = WhFacade.new.clean_units_data(response2, @faction1)
+
+      expect(WhFacade.new.check_for_invul_sv(clean_data[0][:name])).to be(4)
+      expect(WhFacade.new.check_for_invul_sv(clean_data.last[:name])).to be(4)
+
+      expect(WhFacade.new.check_for_invul_sv(clean_data2[5][:name])).to be(3)
+      expect(WhFacade.new.check_for_invul_sv(clean_data2.last[:name])).to be_nil
+
     end
   end
 end
