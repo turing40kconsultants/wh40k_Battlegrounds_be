@@ -3,7 +3,7 @@ class Unit < ApplicationRecord
   validates :name, 
             :movement, 
             :toughness, 
-            :sv, 
+            :sv,
             :wounds, 
             :leadership, 
             :objective_control, 

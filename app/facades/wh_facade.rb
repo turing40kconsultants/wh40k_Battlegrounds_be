@@ -3,8 +3,78 @@ class WhFacade
 
   end
   
-  def get_units_by_faction(faction)
-    search = GithubService.get_units_by_faction(faction)
+
+  def get_units_by_faction(path, faction)
+    data = get_units_data_by_faction(path)
+    clean_data = clean_units_data(data, faction)
+
+    clean_data.each do |unit_data|
+      unit = faction.units.create!(unit_data.except(:weapons))
+      unit_data[:weapons].each do |weapon_data|
+        weapon = unit.weapons.create!(weapon_data.except(:abilities))
+        abilities = weapon_data[:abilities].map do |ability_data|
+          weapon.weapon_abilities.create!(ability_data)
+        end
+      end
+    end
+    Unit.all
+  end
+
+  def clean_units_data(units_data, faction)
+    units_data.map do |unit|
+      {
+        name: unit[:name],
+        movement: unit[:stats][0].delete('\"').to_i, 
+        toughness: unit[:stats][1].to_i, 
+        sv: unit[:stats][2].delete('+').to_i,
+        invul_sv: unit[:stats],
+        wounds: unit[:stats][3].to_i, 
+        leadership: unit[:stats][4].delete('+').to_i, 
+        objective_control: unit[:stats][5].to_i, 
+        faction: faction,
+        weapons: clean_weapons_data(unit[:weapons])
+      }
+    end
+  end
+
+  def clean_weapons_data(weapons_data)
+    weapons_data.map do |weapon|
+      if weapon[:typeName] != "Abilities"
+        {
+          name: weapon[:name],
+          attacks: weapon[:characteristics][1].to_i,
+          ws: weapon[:characteristics][2].delete('+').to_i,
+          strength: weapon[:characteristics][3].to_i,
+          ap: weapon[:characteristics][4].delete('-').to_i,
+          damage: weapon[:characteristics][5],
+          range: if weapon[:characteristics][0] == "Melee"
+                    0
+                  else
+                    weapon[:characteristics][0]
+                  end,
+          abilities: clean_abilities_data(weapon[:characteristics][6])
+        }
+      end
+    end.compact
+  end
+
+  def clean_abilities_data(abilities_data)
+    if abilities_data.nil?
+      {name: "-", description: "refer to game rules"}
+    else
+      abilities_to_array = abilities_data.split(',').map { |element| element.strip }
+      abilities_to_array.map do |ability|
+        {
+          name: abilities_data,
+          description: 'Refer to game rules'
+        }
+      end
+    end
+  end
+
+
+  def get_units_data_by_faction(path)
+    search = GithubService.get_units_by_faction(path)
     units = search[:catalogue][:sharedSelectionEntries][:selectionEntry].flat_map do |unit|
       collection = []
 
@@ -279,16 +349,16 @@ end
 #   end
 # end
 
-{:name=>"Lychguard",
-:stats=>["5\"", "5", "3+", "2", "7+", "1"],
-:weapons=>
-  [{:name=>"Warscythe", :typeName=>"Melee Weapons", :characteristics=>["Melee", "2", "3+", "8", "-3", "2", "Devastating Wounds"]},
-  {:name=>"Hyperphase sword", :typeName=>"Melee Weapons", :characteristics=>["Melee", "3", "3+", "6", "-2", "1", "-"]},
-  {:name=>"Dispersion Shield", :typeName=>"Abilities", :characteristics=>"The bearer has a 4+ invulnerable save."}]}
+# sample character profile
+# {:name=>"Lychguard",
+# :stats=>["5\"", "5", "3+", "2", "7+", "1"],
+# :weapons=>
+#   [{:name=>"Warscythe", :typeName=>"Melee Weapons", :characteristics=>["Melee", "2", "3+", "8", "-3", "2", "Devastating Wounds"]},
+#   {:name=>"Hyperphase sword", :typeName=>"Melee Weapons", :characteristics=>["Melee", "3", "3+", "6", "-2", "1", "-"]},
+#   {:name=>"Dispersion Shield", :typeName=>"Abilities", :characteristics=>"The bearer has a 4+ invulnerable save."}]}
 
 def reformat_weapon_data(weapon_list)
     weapon_list.map do |weapon|
       weapon[:characteristics]
     end
-  # end
 end
