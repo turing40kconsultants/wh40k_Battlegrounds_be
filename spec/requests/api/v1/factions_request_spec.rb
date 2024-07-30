@@ -346,7 +346,7 @@ describe "Wh40k_Battlegrounds API" do
         expect(weapon[:attributes][:name]).to be_a(String)
     
         expect(weapon[:attributes]).to have_key(:attacks)
-        expect(weapon[:attributes][:attacks]).to be_a(Integer)
+        expect(weapon[:attributes][:attacks]).to be_a(String)
     
         expect(weapon[:attributes]).to have_key(:ws)
         expect(weapon[:attributes][:ws]).to be_a(Integer)
@@ -375,5 +375,18 @@ describe "Wh40k_Battlegrounds API" do
         end
       end
     end
+  end
+
+  it "will gracefully handle if a faction id doesn't exist" do
+    get "/api/v1/factions/987654321/units"
+
+    expect(response).to_not be_successful
+    expect(response.status).to eq(404)
+
+    data = JSON.parse(response.body, symbolize_names: true)
+    
+    expect(data[:errors]).to be_a(Array)
+    expect(data[:errors].first[:status]).to eq("404")
+    expect(data[:errors].first[:title]).to eq("Couldn't find Faction with 'id'=987654321")
   end
 end

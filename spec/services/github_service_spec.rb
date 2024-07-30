@@ -7,7 +7,10 @@ describe GithubService do
         search = GithubService.get_units_by_faction("Necrons.cat")
 
         expect(search).to be_a Hash
-        expect(search[:catalogue][:sharedSelectionEntries][:selectionEntry]).to be_an Array
+
+        units_data = search[:catalogue][:sharedSelectionEntries][:selectionEntry]
+
+        expect(units_data).to be_an Array
 
       end
     end
