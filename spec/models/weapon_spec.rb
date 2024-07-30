@@ -19,7 +19,7 @@ RSpec.describe Weapon, type: :model do
     it 'should initialize a melee weapon with a name, attacks, ws, strength, ap, and damage' do
       m_weapon = Weapon.create(name: 'Master Crafted Power Sword', attacks: 4, ws: 3, strength: 5, ap: 2, damage: 2)
       expect(m_weapon.name).to eq('Master Crafted Power Sword')
-      expect(m_weapon.attacks).to eq(4)
+      expect(m_weapon.attacks).to eq("4")
       expect(m_weapon.ws).to eq(3)
       expect(m_weapon.strength).to eq(5)
       expect(m_weapon.ap).to eq(2)

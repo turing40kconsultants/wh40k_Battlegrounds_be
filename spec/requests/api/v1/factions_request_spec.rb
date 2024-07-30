@@ -346,7 +346,7 @@ describe "Wh40k_Battlegrounds API" do
         expect(weapon[:attributes][:name]).to be_a(String)
     
         expect(weapon[:attributes]).to have_key(:attacks)
-        expect(weapon[:attributes][:attacks]).to be_a(Integer)
+        expect(weapon[:attributes][:attacks]).to be_a(String)
     
         expect(weapon[:attributes]).to have_key(:ws)
         expect(weapon[:attributes][:ws]).to be_a(Integer)

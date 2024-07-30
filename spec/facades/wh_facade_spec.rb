@@ -11,7 +11,7 @@ describe WhFacade do
     it "can create Necron units with hash data from GithubService", :vcr do
 
       response = WhFacade.new.get_units_by_faction("Necrons.cat", @faction1)
-binding.pry
+# binding.pry
       expect(response).to be_all Unit
       expect(response.count).to eq(59)
       expect(Weapon.all.count).to eq(119)
