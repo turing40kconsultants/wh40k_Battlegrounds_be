@@ -354,4 +354,17 @@ describe "Wh40k_Battlegrounds API" do
       end
     end
   end
+
+  it "will gracefully handle if a unit id doesn't exist" do
+    get "/api/v1/units/123123"
+
+    expect(response).to_not be_successful
+    expect(response.status).to eq(404)
+
+    data = JSON.parse(response.body, symbolize_names: true)
+    
+    expect(data[:errors]).to be_a(Array)
+    expect(data[:errors].first[:status]).to eq("404")
+    expect(data[:errors].first[:title]).to eq("Couldn't find Unit with 'id'=123123")
+  end
 end
