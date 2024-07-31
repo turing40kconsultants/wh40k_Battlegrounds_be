@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      resources :units, only: [:show]
       resources :factions, only: [:index] do
         resources :units, only: :index, action: :show, controller: '/api/v1/factions'
       end
