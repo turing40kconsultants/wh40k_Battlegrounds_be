@@ -15,7 +15,7 @@ RSpec.describe 'api/factions', type: :request do
 
 
       response(200, 'successful') do
-        schema type: :array, items: { "$ref" => "#/components/schemas/faction" }
+        schema type: :hash, items: { "$ref" => "#/components/schemas/faction" }
 
 
         let!(:faction1) { Faction.create(name: "Necrons") }
