@@ -1,0 +1,146 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/factions":
+    get:
+      summary: list factions
+      tags:
+      - Factions
+      description: List all factions in the system
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/faction"
+  "/api/v1/factions/{id}/units":
+    parameters:
+    - name: id
+      in: path
+      description: The ID for the Faction
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: show faction
+      description: Get the details for a particular faction
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/factionWithUnits"
+        '404':
+          description: faction not found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/not_found"
+components:
+  schemas:
+    not_found:
+      type: object
+      properties:
+        message:
+          type: string
+    faction:
+      type: faction
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          example: Necrons
+    factionWithUnits:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              type:
+                type: string
+              attributes:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  movement:
+                    type: integer
+                  toughness:
+                    type: integer
+                  sv:
+                    type: integer
+                  invul_sv:
+                    type: integer
+                  wounds:
+                    type: integer
+                  leadership:
+                    type: integer
+                  objective_control:
+                    type: integer
+                  faction_id:
+                    type: integer
+              weapons:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        type:
+                          type: string
+                        attributes:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                            attacks:
+                              type: string
+                            ws:
+                              type: integer
+                            strength:
+                              type: integer
+                            ap:
+                              type: integer
+                            damage:
+                              type: string
+                            range:
+                              type: integer
+                        abilities:
+                          type: object
+                          properties:
+                            data:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                  type:
+                                    type: string
+                                  attributes:
+                                    type: object
+                                    properties:
+                                      name:
+                                        type: string
+                                      description:
+                                        type: string
+servers:
+- url: https://wh40k-battlegrounds-be-ce09c759206c.herokuapp.com/
+  variables:
+    defaultHost:
+      default: www.heroku.com
