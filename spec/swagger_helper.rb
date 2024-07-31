@@ -30,7 +30,7 @@ RSpec.configure do |config|
               message: { type: :string }
             }
           },
-          order: {    # << This is where we describe our order
+          faction: {    # << This is where we describe our model
             type: 'faction',
             required: [:name],
             properties: {
@@ -40,6 +40,84 @@ RSpec.configure do |config|
               },
             }
           },
+          factionWithUnits: {
+            type: :object,
+            properties: {
+              data: {
+                type: :array,
+                items: {
+                  type: :object,
+                  properties: {
+                    id: { type: :string },
+                    type: { type: :string },
+                    attributes: {
+                      type: :object,
+                      properties: {
+                        name: { type: :string },
+                        movement: { type: :integer },
+                        toughness: { type: :integer },
+                        sv: { type: :integer },
+                        invul_sv: { type: :integer },
+                        wounds: { type: :integer },
+                        leadership: { type: :integer },
+                        objective_control: { type: :integer },
+                        faction_id: { type: :integer }
+                      }
+                    },
+                    weapons: {
+                      type: :object,
+                      properties: {
+                        data: {
+                          type: :array,
+                          items: {
+                            type: :object,
+                            properties: {
+                              id: { type: :string },
+                              type: { type: :string },
+                              attributes: {
+                                type: :object,
+                                properties: {
+                                  name: { type: :string },
+                                  attacks: { type: :string },
+                                  ws: { type: :integer },
+                                  strength: { type: :integer },
+                                  ap: { type: :integer },
+                                  damage: { type: :string },
+                                  range: { type: :integer }
+                                }
+                              },
+                              abilities: {
+                                type: :object,
+                                properties: {
+                                  data: {
+                                    type: :array,
+                                    items: {
+                                      type: :object,
+                                      properties: {
+                                        id: { type: :string },
+                                        type: { type: :string },
+                                        attributes: {
+                                          type: :object,
+                                          properties: {
+                                            name: { type: :string },
+                                            description: { type: :string }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
         },
       },
       servers: [

@@ -6,7 +6,7 @@ describe WhFacade do
       response = WhFacade.new.get_units_by_faction("Necrons.cat")
 
       expect(response).to be_an Array
-      binding.pry
+
       # expect(response).to be_all Unit
     end
 
@@ -14,7 +14,7 @@ describe WhFacade do
       response = WhFacade.new.get_units_by_faction("Imperium%20-%20Dark%20Angels.cat")
 
       expect(response).to be_an Array
-      binding.pry
+
       # expect(response).to be_all Unit
     end
   end

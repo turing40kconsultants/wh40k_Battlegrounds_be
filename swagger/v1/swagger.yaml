@@ -1,3 +1,4 @@
+---
 openapi: 3.0.1
 info:
   title: API V1
@@ -17,37 +18,127 @@ paths:
               schema:
                 type: hash
                 items:
-                  "$ref": "#/components/schemas/faction"
-              examples:
-                test_example:
-                  value:
-                    - id: '1'
-                      type: faction
-                      attributes:
-                        name: Necrons
-                    - id: '2'
-                      type: faction
-                      attributes:
-                        name: Dark Angels
+                  "$ref": "#/components/schema/faction"
+  "/api/v1/factions/{id}/units":
+    parameters:
+    - name: id
+      in: path
+      description: The ID for the Faction
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: show faction
+      description: Get the details for a particular faction
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/factionWithUnits"
+        '404':
+          description: faction not found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/not_found"
 components:
   schemas:
-    faction:
+    not_found:
       type: object
+      properties:
+        message:
+          type: string
+    faction:
+      type: faction
       required:
       - name
       properties:
-        id:
+        name:
           type: string
-          example: '21'
-        type:
-          type: string
-          example: faction
-        attributes:
-          type: object
-          properties:
-            name:
-              type: string
-              example: Necrons
+          example: Necrons
+    factionWithUnits:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              type:
+                type: string
+              attributes:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  movement:
+                    type: integer
+                  toughness:
+                    type: integer
+                  sv:
+                    type: integer
+                  invul_sv:
+                    type: integer
+                  wounds:
+                    type: integer
+                  leadership:
+                    type: integer
+                  objective_control:
+                    type: integer
+                  faction_id:
+                    type: integer
+              weapons:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        type:
+                          type: string
+                        attributes:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                            attacks:
+                              type: string
+                            ws:
+                              type: integer
+                            strength:
+                              type: integer
+                            ap:
+                              type: integer
+                            damage:
+                              type: string
+                            range:
+                              type: integer
+                        abilities:
+                          type: object
+                          properties:
+                            data:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                  type:
+                                    type: string
+                                  attributes:
+                                    type: object
+                                    properties:
+                                      name:
+                                        type: string
+                                      description:
+                                        type: string
 servers:
 - url: https://wh40k-battlegrounds-be-ce09c759206c.herokuapp.com/
   variables:
