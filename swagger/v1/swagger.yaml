@@ -1,0 +1,55 @@
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/factions":
+    get:
+      summary: list factions
+      tags:
+      - Factions
+      description: List all factions in the system
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: hash
+                items:
+                  "$ref": "#/components/schemas/faction"
+              examples:
+                test_example:
+                  value:
+                    - id: '1'
+                      type: faction
+                      attributes:
+                        name: Necrons
+                    - id: '2'
+                      type: faction
+                      attributes:
+                        name: Dark Angels
+components:
+  schemas:
+    faction:
+      type: object
+      required:
+      - name
+      properties:
+        id:
+          type: string
+          example: '21'
+        type:
+          type: string
+          example: faction
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+              example: Necrons
+servers:
+- url: https://wh40k-battlegrounds-be-ce09c759206c.herokuapp.com/
+  variables:
+    defaultHost:
+      default: www.heroku.com
