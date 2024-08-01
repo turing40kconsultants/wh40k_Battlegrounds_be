@@ -5,6 +5,10 @@ Welcome to the Warhammer 40K Battlegrounds, a Pokémon-style battle clone set in
 Initially appeared on
 [gist](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2). But the page cannot open anymore so that is why I have moved it here.
 
+## Associated Front End
+- [Github repo](https://github.com/turing40kconsultants/wh40k_Battlegrounds_fe)
+- [Deployed application](https://intense-gorge-51639-2d7942788e0c.herokuapp.com/)
+
 ## Getting Started
 
 You can access the game on our production environment [here](https://intense-gorge-51639-2d7942788e0c.herokuapp.com/)
