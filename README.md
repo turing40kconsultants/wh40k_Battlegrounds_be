@@ -1,4 +1,4 @@
-# Warhammer 40k Battlegrounds - Backend
+# Warhammer 40k Battlegrounds - API
 
 Welcome to the Warhammer 40K Battlegrounds, a Pokémon-style battle clone set in the grimdark universe of Warhammer 40,000. This app brings the strategic elements of the 40K tabletop game to life by utilizing data sheets from the Warhammer 40k 10th Edition. Players can choose from a wide array of units, each with unique abilities and attributes, to engage in tactical battles. Whether you're a seasoned 40K veteran or new to the franchise, our app offers a thrilling and immersive experience that captures the essence of this epic universe.
 
