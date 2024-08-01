@@ -41,6 +41,12 @@ We welcome any and all contributions! Feel free to submit a Pull Request with yo
 3. Setup database: `rails db:{create,migrate}`
 4. Run test suite: `bundle exec rspec` (100% of tests should be passing if everything was set up properly)
 
+## ER Diagram
+![image](https://github.com/user-attachments/assets/6c6a30cb-d493-48ab-8a1f-252819a0ffd5)
+
+## 40k Battlegrounds Architecture
+![image](https://github.com/user-attachments/assets/5481ed2e-10f2-4a47-bd0c-d212d4edff84)
+
 
 ## Built With
 
