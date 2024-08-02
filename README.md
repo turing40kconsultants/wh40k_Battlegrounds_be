@@ -2,9 +2,6 @@
 
 Welcome to the Warhammer 40K Battlegrounds, a Pokémon-style battle clone set in the grimdark universe of Warhammer 40,000. This app brings the strategic elements of the 40K tabletop game to life by utilizing data sheets from the Warhammer 40k 10th Edition. Players can choose from a wide array of units, each with unique abilities and attributes, to engage in tactical battles. Whether you're a seasoned 40K veteran or new to the franchise, our app offers a thrilling and immersive experience that captures the essence of this epic universe.
 
-Initially appeared on
-[gist](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2). But the page cannot open anymore so that is why I have moved it here.
-
 ## Associated Front End
 - [Github repo](https://github.com/turing40kconsultants/wh40k_Battlegrounds_fe)
 - [Deployed application](https://intense-gorge-51639-2d7942788e0c.herokuapp.com/)
