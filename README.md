@@ -59,13 +59,13 @@ We welcome any and all contributions! Feel free to submit a Pull Request with yo
     
 ## Authors
 
-Clyde Autin | [clydeautin](https://github.com/clydeautin) | clyde.autin@gmail.com | [LinkedIn](https://www.linkedin.com/in/clydeautin/)
+Clyde Autin | [clydeautin](https://github.com/clydeautin) | [LinkedIn](https://www.linkedin.com/in/clydeautin/)
 
-Chee Lee | [cheeleertr](https://github.com/cheeleertr) | cheeleertr@gmail.com | [LinkedIn](https://www.linkedin.com/in/chee-lee-rtr/)
+Chee Lee | [cheeleertr](https://github.com/cheeleertr) | [LinkedIn](https://www.linkedin.com/in/chee-lee-rtr/)
 
-Luis Aparicio | [LuisAparicio14](https://github.com/luisaparicio14) | lfelipeaparicio2004@gmail.com | [LinkedIn](https://www.linkedin.com/in/luis-aparicio14/)
+Luis Aparicio | [LuisAparicio14](https://github.com/luisaparicio14) | [LinkedIn](https://www.linkedin.com/in/luis-aparicio14/)
 
-Lance Butler | [LJ9332](https://github.com/LJ9332) | lancej2004@gmail.com | [LinkedIn](https://www.linkedin.com/in/lance-butler-jr/)
+Lance Butler | [LJ9332](https://github.com/LJ9332) | [LinkedIn](https://www.linkedin.com/in/lance-butler-jr/)
 
 
 ## License
